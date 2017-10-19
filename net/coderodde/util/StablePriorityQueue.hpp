@@ -56,7 +56,9 @@ namespace util {
             
             T removeHead() {
                 T ret = m_head->m_element;
+                ElementListNode* old_node = m_head;
                 m_head = m_head->m_next;
+                delete old_node;
                 
                 if (m_head != nullptr) {
                     m_head->m_prev = nullptr;
@@ -93,6 +95,7 @@ namespace util {
             
             if (element_list->isEmpty()) {
                 m_priority_map.erase(element_list->m_priority);
+                delete element_list;
             }
             
             m_element_map.erase(result);
