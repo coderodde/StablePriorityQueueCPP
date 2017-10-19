@@ -73,6 +73,17 @@ namespace util {
         };
         
     public:
+        
+        ~StablePriorityQueue() {
+            for (std::pair<Priority, ElementList*> p : m_priority_map) {
+                delete p.second;
+            }
+            
+            for (std::pair<T, ElementListNode*> p : m_element_map) {
+                delete p.second;
+            }
+        }
+        
         void add(T element, Priority priority) {
             if (m_element_map.find(element) == m_element_map.cend()) {
                 addNewEntry(element, priority);
@@ -167,6 +178,7 @@ namespace util {
             
             if (element_list->isEmpty()) {
                 m_priority_map.erase(element_list->m_priority);
+                delete element_list;
             }
         }
         
